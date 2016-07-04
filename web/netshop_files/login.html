@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0049)http://www.189.cn/dqmh/login.do?method=loginright -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>登录</title>
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="登录">
+	 
+<style>
+body, ul, li, h1, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td{color: #777777; font-family: 微软雅黑,verdana; font-size: 100%; margin: 0 auto; padding: 0;}
+img{border: 0 none;}
+a:link{color: #777777; text-decoration: none;}
+a:hover{color: #777777; text-decoration: underline;}
+a{color: #777777;}
+ul, ol, li{list-style: outside none none;}
+.fr{display: inline; float: right;}
+.pt15{padding-top: 15px;}
+.f14{font-size: 0.85em;}
+.pt1{padding-top: 1px;}
+.fl{display: inline; float: left;}
+.ml8{margin-left: 8px;}
+.cf_a a{color: #fff;}
+.mr4{margin-right: 4px;}
+.ml4{margin-left: 4px;}
+.pt2-7{*padding-top:2px;color: #fff;}
+.lr_ydl{font-family: "微软雅黑";font-size: 14px;color: #ffffff;line-height: 45px;
+margin-left: 12px;float: left;width: 45px;		}
+</style>
+	<script type="text/javascript" src="jquery-1.8.3(1).js"></script>
+	<script type="text/javascript" src="loginUtils.js"></script>
+	<script type="text/javascript" src="thirdLogout.js"></script>
+	<script type="text/javascript" src="jquery.cookie.js"></script>
+	<script type="text/javascript" src="shopUtils.js"></script>
+	 <script>
+	 var loginInResult = null;
+	 </script>
+		     
+	<script type="text/javascript">
+	var shopId = $.cookie('SHOPID_COOKIEID');
+	var path_='/dqmh';
+		function logout(){
+			if(shopId == '10011'){
+				window.parent.location.href = path_+"/Uam.do?method=unifiedLogout&toUrl=http://js.189.cn/self_service/logout.action?TargetURL=http://www.189.cn/js";	
+				return;
+			}else if(shopId == '10002' ||shopId == '10015' || shopId == '10025' || shopId == '10026' || shopId == '10029'||shopId == '10014'||shopId == '10028'||shopId == '10027'||shopId == '10004'||shopId == '10031'||shopId == '10019'||shopId == '10007'||shopId == '10001'||shopId == '10003'||shopId == '10005'||shopId == '10006'||shopId == '10023'){  //ecs登陆用户退出
+				ecsUserLogout();
+				return ;
+			}else if($('#userType').val() == "tencentUserInfo"){  //腾讯退出
+				tencentLogout();
+			}else if($('#userType').val() == "sinaUserInfo"){  //新浪退出
+				sinaLogout();
+			}else if($('#userType').val() == "benwang"){  //UAM登陆用户退出
+				uamUserLogout();
+				return ;
+			}else if(loginInResult=='0'){
+				yijianLogout();
+			}else{  //普通退出,3-18切换成Uam退出
+				uamUserLogout();
+				return ;
+			}
+			//跳转到首页
+			window.parent.location.href = 'http://' + 'www.189.cn';
+		}
+		
+		 
+		function yijianLogout(){
+			var flag = false ;
+			$.ajax({
+				type: "POST",
+				url: "/dqmh/userCenter/yiJianLoginAction.do?method=yiJianLogout",  
+				dataType: "json",
+				async:false,
+				success: function(msg){
+					if(msg.code == '0'){
+						if(sendURLTo()){
+							flag = true ;
+						}else{
+							window.parent.location.href = 'http://' + 'www.189.cn';
+							flag = false ;
+						}
+					};
+					if(msg.code == '1'){
+						window.parent.location.href = 'http://' + 'www.189.cn';
+						flag = false ;
+					}
+				},
+				error:function(msg){
+					window.parent.location.href = 'http://' + 'www.189.cn';
+					flag = false;
+				}
+			});
+			return flag ;
+		}
+		function uamUserLogout(){
+			var flag = false ;
+			$.ajax({
+				type: "POST",
+				url: path_ + '/Uam.do?method=logout',   
+				dataType: "json",
+				async:false,
+				success: function(msg){
+					if(msg.code == '0'){
+						if(sendURLTo()){
+							flag = true ;
+						}else{
+							window.parent.location.href = 'http://' + 'www.189.cn';
+							flag = false ;
+						}
+					};
+					if(msg.code == '1'){
+						window.parent.location.href = 'http://' + 'www.189.cn';
+						flag = false ;
+					}
+				},
+				error:function(msg){
+					window.parent.location.href = 'http://' + 'www.189.cn';
+					flag = false;
+				}
+			});
+			return flag ;
+		}
+		
+		function sendURLTo(){
+			var contextPath = 'http://' + 'www.189.cn' ;
+			var  path = '/dqmh' ;
+			var totalUrl = contextPath + path ;
+			var tt = document.getElementById('uamlogout') ;
+			document.getElementById('service1').value =  totalUrl + '/Uam.do?method=logout2UAM' ;
+			tt.submit() ;
+			return true ;
+		}
+		
+		function ecsUserLogout(){
+			var contextPath = 'http://' + 'www.189.cn' ;
+			var ecstt = document.getElementById('ecslogout') ;
+			document.getElementById('shopId').value = shopId;
+			document.getElementById('DestURL').value = contextPath;
+			ecstt.submit() ;
+			return true ;
+		}
+
+		 
+	</script>
+  </head>
+  
+  <body style="width: 120px;margin: 0;padding: 0;background: #ff8200;">
+  <ul class="fr f14 cf_a pt15">
+	<li class="fl pt1">
+	<img src="bt_logo.png">
+	</li>
+	
+	<li class="fl ml8 unl_a">
+	<a href="http://www.189.cn/dqmh/login/loginJT.jsp" target="_top">登录</a>
+	</li>
+	<li class="fl cf ml4 mr4 f14 pt2-7">|</li>
+	<li class="fl unl_a">
+	<a href="http://login.189.cn/reg2" target="_top" id="userreg_link">注册</a>
+	</li>
+	
+	
+	</ul>
+
+  
+
+</body></html>

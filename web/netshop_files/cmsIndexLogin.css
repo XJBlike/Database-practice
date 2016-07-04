@@ -1,0 +1,8 @@
+@CHARSET "UTF-8";
+
+/*顶部登录页面*/
+*{ margin:0; padding:0;}
+.login{width:500px;font-size:14px;vertical-align: middle;background-color:transparent;line-height: 28px;color: #7d8b8c}
+.login a{text-decoration:none;color: #7d8b8c;}
+.login a:HOVER{color: #ff8200;}
+.login span{margin-left: 20px;}

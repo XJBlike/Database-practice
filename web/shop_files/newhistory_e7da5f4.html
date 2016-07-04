@@ -1,0 +1,56 @@
+
+<!-- saved from url=(0274)http://map.baidu.com/wolfman/static/common/newhistory_e7da5f4.html?url=con%2526wd%253D%2525E6%2525AD%2525A6%2525E6%2525B1%252589%2525E7%252594%2525B5%2525E4%2525BF%2525A1%2525E8%252590%2525A5%2525E4%2525B8%25259A%2525E5%25258E%252585%2526c%253D218%2526provider%253Dpc-aladin -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<style type="text/css">
+#mapBanner,#pctomoNavId,.nav_ads,.addrBottomImg {display:none!important;display:none}</style>
+</head>
+<body>
+<script>
+
+var url = location.href.replace(/%25/gi,"%");
+var url=url.slice(url.indexOf("=")+1);
+
+if(typeof(parent.MapHistory) !="undefined" ){
+    if(parent.MapHistory.nowTpl != url 
+        && parent.MapHistory.tplOpts
+        && parent.MapHistory.tplOpts[url]){
+
+        parent.MapHistory.nowTpl = url;
+        //if(url.indexOf("isfullScreen") == -1)
+        //    parent.MapHistory.url = url;	
+
+        var opts = parent.MapHistory.tplOpts[url];
+        if(opts == null){opts ={}};
+        if(opts.cinfo == null){
+            opts.cinfo = {cityInit:1};
+        }
+        opts.history = true;
+        // parent.searchInViewCtrl && parent.searchInViewCtrl.exit();
+        if(url.indexOf("isfullScreen")>-1){	
+            if(parent.map.fullScreenMode){
+                parent.fullScreenCtrl.exitFull(true);
+            }else{
+                parent.fullScreenCtrl.toFull(true);
+            }
+        }else{
+            //if(opts && opts.dom)
+                //opts.dom = null;
+            //TODO 使用decodeURIComponent替代unescape
+            url = decodeURIComponent(url);
+            if(/^name:/.test(url)) {
+                var component = url.split(':')[1];
+                if(component){
+                    parent.componentManager.load(component, opts);
+                }
+            } else {
+                parent.componentManager.go(url, opts);
+            }
+        }
+    }
+}
+
+</script>
+
+
+</body></html>

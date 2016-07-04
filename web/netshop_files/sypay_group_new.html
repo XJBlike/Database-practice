@@ -1,0 +1,783 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0048)http://hb.189.cn/pages/login/sypay_group_new.jsp -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=GBK">
+	
+	<title>快捷支付通道</title>
+	<meta name="keywords">
+	<meta name="description">
+	
+	<link rel="stylesheet" href="http://hb.189.cn/pages/css/selfservice/payment/groupfrontpage/reset.css">
+    <link rel="stylesheet" href="http://hb.189.cn/pages/css/selfservice/payment/groupfrontpage/style.css">
+    <link rel="stylesheet" href="http://hb.189.cn/pages/css/selfservice/payment/groupfrontpage/headtop.css">
+    <link rel="stylesheet" href="http://hb.189.cn/pages/css/selfservice/payment/groupfrontpage/footdown.css">
+    
+    <script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="groupfrontpage.js"></script>
+</head>
+
+<body>
+	<div class="w224 z222 pr mt5 bcfff" style="height: 170px;"> 
+      
+		<!--手机、流量、宽带、固话-->
+		<div class="mt10">
+			<ul id="lx_nav1" class="h ov">
+				<li class="li01" onclick="secBoard(&#39;lx_nav1&#39;,&#39;voucha&#39;,&#39;li&#39;,1);">手机</li>
+				<li class="li02" onclick="secBoard(&#39;lx_nav1&#39;,&#39;voucha&#39;,&#39;li&#39;,2);">流量</li>
+				<li class="li02" onclick="secBoard(&#39;lx_nav1&#39;,&#39;voucha&#39;,&#39;li&#39;,3);">宽带</li>
+				<li class="li02" onclick="secBoard(&#39;lx_nav1&#39;,&#39;voucha&#39;,&#39;li&#39;,4);" style="border:none;">固话</li>
+	        </ul>
+    
+			<!-- 手机充值 -->
+			<div class="lx-con" id="voucha_1" style="display: block;">
+				<ul id="lx_nav3" class="f12 w h ov ml18 mt5" style="padding:0px;margin:0px;margin-left:25px;">
+					<li class="li01" onclick="secBoard(&#39;lx_nav3&#39;,&#39;vouchc&#39;,&#39;li&#39;,1);">
+						<label class="lh30 h30 cp">
+							<input name="1" type="radio" value="" checked="checked" class="ml5 vam h25 ff8 input_mt-2">
+							&nbsp;银行卡充值
+						</label>
+					</li>
+					<li class="li02" onclick="secBoard(&#39;lx_nav3&#39;,&#39;vouchc&#39;,&#39;li&#39;,2);">
+						<label class="lh30 h30 cp">
+							<input name="1" type="radio" value="" class="ml5 vam h25 ff8 input_mt-2 ml10">
+							&nbsp;卡密充值 </label>
+					</li>
+				</ul>
+				
+				<!-- 手机银行卡充值 -->
+				<form id="form_mobile_bank" name="form_mobile_bank" action="http://hb.189.cn/pages/selfservice/payment/index.action" method="post" target="_top">
+				<div class="lx-con mt5" id="vouchc_1" style="display: block;">
+					<div class="recharge">
+						<p class="">
+							<span class="w46 h20 dpl lh20 tr mr4 f12">号码</span> 
+							<span class="">
+								<input name="accnbr" id="accountNumbersjyh" type="text" onfocus="if(this.value == &#39;请输入手机号码&#39;){ this.value = &#39;&#39;;this.style.color=&#39;#737e73&#39;;}" onblur="checkAccountNumber(&#39;sjyh&#39;);checkAccountNumberEnd(&#39;sjyh&#39;);" class="dropd_a f12 pl10 bd h21 lh21" value="请输入手机号码" style="color: #D7D7D7;width:135px;font-size:12px;border:1px solid #ddd;height:21px;" maxlength="11">
+							</span>
+						</p>
+						<p class="p_bt f12 tc ff8 bd z333" style="display: none;" id="photosjyh">请输入手机号码!</p>
+			            <p class="p_bt f12 tc ff8 bd z333" style="display: none;" id="photo1sjyh">请输入正确的手机号码!</p>
+			            <p class="p_bt f12 tc ff8 bd z333" style="display: none; width: 160px;" id="photo2sjyh"> 请输入正确的电信手机号码! </p>
+						
+						<div class="mt7 z222">
+							<span class="w46 h20 dpl lh20 tr mr4 f12">金额</span>
+							<ul id="main_box" class="dpl f12 w64 pa h21 lh21 bd z222">
+								<li class="select_box">
+									<input name="intentAmount" type="hidden" value="50">
+									<span class="pl10 w54 h21 lh21">50元</span>
+									<ul class="son_ul" style="width: 146px; display: none;">
+										<li value="50">50元</li>
+										<li value="100">100元</li>
+										<li value="200">200元</li>
+									</ul>
+								</li>
+							</ul>
+                
+							<span class="dpl f12 ff8 mb-3 ov ml73"></span>
+							<span style="font-size:12px;color:#ff8201; ">98折</span>
+						</div>
+						
+						<p class="f12 ff8 li_mt2 tc"></p>
+						
+						<p class="aa mt5">
+							<span class="w46 h20 dpl lh20 tr mr4 f12">验证码</span>
+							<span class="">
+								<input id="mobile_bank_code" name="code" type="text" onclick="showCheckRand(&#39;form_mobile_bank&#39;, &#39;randLabel1&#39;, &#39;checkImg1&#39;);" class="dropd_a f12 pl10 bd w54  h21 lh21" value="">
+							</span>
+							<span id="randLabel1" class="dpl vm" style="display:none;"></span>
+						</p>
+					</div>
+					
+					<p class="mt20" style=" margin-top:5px;*margin-top:5px;">
+						<span class=" ml25">
+							<input type="button" name="Submit" class="f12 cf bcff8201 br w100 h25 bd0 cp" value="立即充值" rel="nofollow" onclick="sppay_submit(1);">
+						</span>
+						<span class="ff_a f12 ml18 ccc_a">
+							<a href="http://hb.189.cn/pages/selfservice/payment/index.action?paybean.randomnum=1" rel="nofollow" target="_blank">充值专区</a>
+						</span>
+					</p>
+				</div>
+				<input type="hidden" name="vflag" value="SYPAY">
+				<input type="hidden" name="flag" value="1">
+				<input type="hidden" name="randomnum" value="1">
+				<input type="hidden" name="attr" value="50">
+				</form>
+          
+				<!-- 手机卡密充值 -->
+				<form id="form_mobile_card" name="form_mobile_card" action="http://hb.189.cn/pages/selfservice/payment/index.action" method="post" target="_top">
+				<div class="lx-con mt5" id="vouchc_2" style="display: none;">
+					<div class="recharge">
+						<p class="">
+							<span class="w46 h20 dpl lh20 tr mr4 f12">号码</span>
+							<span class="">
+								<input name="accnbr" id="accountNumbersjkm" type="text" onfocus="if(this.value == &#39;请输入手机号码&#39;){this.value = &#39;&#39;;this.style.color=&#39;#737e73&#39;;}" onblur="checkAccountNumber(&#39;sjkm&#39;);checkAccountNumberEnd(&#39;sjkm&#39;);" class="dropd_a f12 pl10 bd h21 lh21" value="请输入手机号码" style="color: #D7D7D7;width:135px;font-size:12px;" maxlength="11">
+							</span>
+						</p>
+						<p class="p_bt f12 tc ff8 bd z333" style="display: none;" id="photosjkm">请输入手机号码!</p>
+						<p class="p_bt f12 tc ff8 bd z333" style="display: none;" id="photo1sjkm">请输入正确的手机号码!</p>
+						<p class="p_bt f12 tc ff8 bd z333" style="display: none; width: 160px;" id="photo2sjkm"> 请输入正确的电信手机号码! </p>
+						
+						<div class="mt7">
+							<span class="w46 h20 dpl lh20 tr mr4 f12">卡密</span>
+							<span class="">
+								<input name="intentCardPin" id="cradPin0SJ" type="text" class="dropd_a f12 pl10 bd h21 lh21" onfocus="if(this.value == &#39;请输入卡密&#39;){ this.value = &#39;&#39;;this.style.color=&#39;#737e73&#39;;}" onblur="checkAccountNumberKM(&#39;SJ&#39;);checkAccountNumberKMEnd(&#39;SJ&#39;);" value="请输入卡密" style="color: #D7D7D7;width:135px;font-size:12px;" maxlength="18">
+							</span>
+						</div>
+					</div>
+					<p class="p_bt f12 tc ff8 bd z333" style="display: none;" id="photoSJ">请输入充值卡密码!</p>
+              		<p class="p_bt f12 tc ff8 bd z333" style="display: none;" id="photo1SJ">充值卡密码为18位数字!</p>
+					
+					<p class="aa mt5">
+						<span class="w46 h20 dpl lh20 tr mr4 f12">验证码</span>
+						<span class="">
+							<input id="mobile_card_code" name="code" type="text" onclick="showCheckRand(&#39;form_mobile_card&#39;, &#39;randLabel2&#39;, &#39;checkImg2&#39;);" class="dropd_a f12 pl10 bd w54  h21 lh21" value="">
+						</span>
+						<span id="randLabel2" class="dpl vm" style="display:none;"></span>
+					</p>
+					
+					<p class="mt20" style=" margin-top:4px;*margin-top:4px;">
+						<span class=" ml25">
+							<input type="button" name="Submit" class="f12 cf bcff8201 br w100 h25 bd0 cp" value="立即充值" rel="nofollow" onclick="sppay_submit(2);">
+						</span>
+						<span class="ff_a f12 ml18 ccc_a">
+							<a href="http://hb.189.cn/pages/selfservice/payment/index.action?paybean.randomnum=1" target="_blank">充值专区</a>
+						</span>
+					</p>
+				</div>
+				<input type="hidden" name="vflag" value="SYPAY">
+				<input type="hidden" name="flag" value="0">
+				<input type="hidden" name="randomnum" value="2">
+				<input type="hidden" name="attr" value="50">
+				</form>
+			</div>
+    
+			<!-- 流量充值 -->
+			<div class="lx-con mt5" id="voucha_2" style="display: none;">
+				<ul id="lx_nav4" class="f12 w h ov ml18 mt5" style="padding:0px;margin:0px;margin-left:25px;margin-top:-5px;">
+					<li class="li01" onclick="secBoard(&#39;lx_nav4&#39;,&#39;vouchd&#39;,&#39;li&#39;,1);">
+						<label class="lh30 h30 cp">
+							<input name="2" type="radio" value="" checked="checked" class="ml5 vam h25 ff8 input_mt-2">
+							&nbsp;银行卡充值 
+						</label>
+					</li>
+					<li class="li02" onclick="secBoard(&#39;lx_nav4&#39;,&#39;vouchd&#39;,&#39;li&#39;,2);">
+						<label class="lh30 h30 cp">
+							<input name="2" type="radio" value="" class="ml5 vam h25 ff8 input_mt-2 ml10">
+							&nbsp;卡密充值 
+						</label>
+					</li>
+				</ul>
+				
+				<!-- 流量银行卡充值 -->
+				<form id="form_liu_bank" name="form_liu_bank" action="http://hb.189.cn/pages/selfservice/payment/index.action" method="post" target="_top">
+				<div class="lx-con mt5" id="vouchd_1" style="display: block;">
+					<div class="recharge">
+						<p class="">
+							<span class="w46 h20 dpl lh20 tr mr4 f12">号码</span>
+							<span class="">
+								<input name="accnbr" id="accountNumberllyh" type="text" onfocus="if(this.value == &#39;请输入手机号码&#39;){ this.value = &#39;&#39;;this.style.color=&#39;#737e73&#39;;}" onblur="checkAccountNumber(&#39;llyh&#39;);checkAccountNumberEnd(&#39;llyh&#39;);" class="dropd_a f12 pl10 bd h21 lh21" value="请输入手机号码" style="color: #D7D7D7;width:135px;font-size:12px;" maxlength="11">
+							</span>
+						</p>
+						<p class="p_bt f12 tc ff8 bd z333" style="display: none;" id="photollyh">请输入手机号码!</p>
+						<p class="p_bt f12 tc ff8 bd z333" style="display: none;" id="photo1llyh">请输入正确的手机号码!</p>
+						<p class="p_bt f12 tc ff8 bd z333" style="display: none; width: 160px;" id="photo2llyh"> 请输入正确的电信手机号码! </p>
+							
+						<div class="mt7">
+							<span class="w46 h20 dpl lh20 tr mr4 f12">金额</span>
+							<ul id="main_box" class="dpl f12 w64 pa h21 lh21 bd z222">
+								<li class="select_box">
+									<input id="flowcardAmount" name="intentFlow" type="hidden" value="60">
+									<span class="pl10 w54 h21 lh21">10元</span>
+									<ul class="son_ul" style="width: 146px; display: none;">
+										<li value="60">10元</li>
+										<li value="150">20元</li>
+										<li value="300">30元</li>
+									</ul>
+								</li>
+							</ul>
+							
+							<span class="dpl f12 ff8 mb-3 ov ml73"></span>
+							
+							<span id="cardflow" style="font-size:12px;color:#ff8201;">60M</span>
+						</div>
+						
+						<p class="f12 ff8 li_mt2 tc"></p>
+						
+						<p class="aa mt5">
+							<span class="w46 h20 dpl lh20 tr mr4 f12">验证码</span>
+							<span class="">
+								<input id="liu_bank_code" name="code" type="text" onclick="showCheckRand(&#39;form_liu_bank&#39;, &#39;randLabel3&#39;, &#39;checkImg3&#39;);" class="dropd_a f12 pl10 bd w54  h21 lh21" value="">
+							</span>
+							<span id="randLabel3" class="dpl vm" style="display:none;"></span>
+						</p>
+					</div>
+					
+					<p class="mt20" style=" margin-top:5px;*margin-top:5px;">
+						<span class=" ml25">
+							<input type="button" name="Submit" class="f12 cf bcff8201 br w100 h25 bd0 cp" onclick="sppay_submit(3);" value="立即充值">
+						</span>
+						<span class="ff_a f12 ml18 ccc_a">
+							<a href="http://hb.189.cn/pages/selfservice/payment/index.action?paybean.randomnum=1" target="_blank">充值专区</a>
+						</span>
+					</p>
+				</div>
+				<input type="hidden" name="vflag" value="SYPAY">
+				<input type="hidden" id="liu_flag" name="flag" value="6">
+				<input type="hidden" id="liu_randomnum" name="randomnum" value="6">
+				<input type="hidden" name="attr" value="50">
+				<input type="hidden" name="flowtype" id="flowtype" value="1">
+				</form>
+          
+				<!-- 流量卡密充值 -->
+				<form id="form_liu_card" name="form_liu_card" action="http://hb.189.cn/pages/selfservice/payment/index.action" method="post" target="_top">
+				<div class="lx-con mt5" id="vouchd_2" style="display: none;">
+					<div class="recharge">
+						<p class="">
+							<span class="w46 h20 dpl lh20 tr mr4 f12">号码</span>
+							<span class="">
+								<input name="accnbr" id="accountNumberllkm" type="text" onfocus="if(this.value == &#39;请输入手机号码&#39;){ this.value = &#39;&#39;;this.style.color=&#39;#737e73&#39;;}" onblur="checkAccountNumber(&#39;llkm&#39;);checkAccountNumberEnd(&#39;llkm&#39;);" class="dropd_a f12 pl10 bd h21 lh21" value="请输入手机号码" style="color: #D7D7D7;width:135px;font-size:12px;" maxlength="11">
+							</span>
+						</p>
+						<p class="p_bt f12 tc ff8 bd z333" style="display: none;" id="photollkm">请输入手机号码!</p>
+						<p class="p_bt f12 tc ff8 bd z333" style="display: none;" id="photo1llkm">请输入正确的手机号码!</p>
+						<p class="p_bt f12 tc ff8 bd z333" style="display: none; width: 160px;" id="photo2llkm"> 请输入正确的电信手机号码! </p>
+          
+						<div class="mt7">
+							<span class="w46 h20 dpl lh20 tr mr4 f12">卡密</span>
+							<span class="">
+								<input name="intentCardPin" type="text" id="cradPin0LL" onfocus="if(this.value == &#39;请输入卡密&#39;){ this.value = &#39;&#39;;this.style.color=&#39;#737e73&#39;;}" onblur="checkAccountNumberKM(&#39;LL&#39;);checkAccountNumberKMEnd(&#39;LL&#39;);" class="dropd_a f12 pl10 bd h21 lh21" value="请输入卡密" style="color: #D7D7D7;width:135px;font-size:12px;" maxlength="18">
+							</span>
+						</div>
+					</div>
+           			<p class="p_bt f12 tc ff8 bd z333" style="display: none;" id="photoLL">请输入充值卡密码!</p>
+					<p class="p_bt f12 tc ff8 bd z333" style="display: none;" id="photo1LL">充值卡密码为18位数字!</p>
+           			
+					<p class="aa mt5">
+						<span class="w46 h20 dpl lh20 tr mr4 f12">验证码</span>
+						<span class="">
+							<input id="liu_card_code" name="code" type="text" onclick="showCheckRand(&#39;form_liu_card&#39;, &#39;randLabel4&#39;, &#39;checkImg4&#39;);" class="dropd_a f12 pl10 bd w54  h21 lh21" value="">
+						</span>
+						<span id="randLabel4" class="dpl vm" style="display:none;"></span>
+					</p>
+					
+					<p class="mt20" style=" margin-top:4px;*margin-top:4px;">
+						<span class=" ml25">
+							<input type="button" name="Submit" class="f12 cf bcff8201 br w100 h25 bd0 cp" value="立即充值" rel="nofollow" onclick="sppay_submit(4);">
+						</span>
+						<span class="ff_a f12 ml18 ccc_a">
+							<a href="http://hb.189.cn/pages/selfservice/payment/index.action?paybean.randomnum=1" target="_blank">充值专区</a>
+						</span>
+					</p>
+				</div>
+				<input type="hidden" name="vflag" value="SYPAY">
+				<input type="hidden" name="flag" value="6">
+				<input type="hidden" name="randomnum" value="6">
+				<input type="hidden" name="attr" value="50">
+				<input type="hidden" name="flowtype" value="2">
+				</form>
+			</div>
+    
+			<!-- 宽带银行卡充值 -->
+			<div class="lx-con mt5" id="voucha_3" style="display: none;">
+				<form id="form_adsl" name="form_adsl" method="post" target="_top" action="http://hb.189.cn/pages/selfservice/payment/index.action">
+				<div class="lx-con mt5" id="vouche_1" style="display: block;">
+					<div class="recharge">
+						<div class="mt7" style="margin-top:10px;*margin-top:5px;">
+							<span class="w46 h20 dpl lh20 tr mr4 f12">地区</span>
+							<ul id="main_box" class="dpl f12 w64 pa h21 lh21 bd z222">
+                				<li class="select_box">
+                					<input name="citycode" type="hidden" value="0127">
+                					<span class="pl10 w54 h21 lh21">武汉</span>
+									<ul class="son_ul" style="display: none; width: 160px; z-index: 10;">
+										<li city="0127" style="width:32px;">武汉</li>
+										<li city="0713" style="width:32px;">黄冈</li>
+										<li city="0710" style="width:32px;">襄阳</li>
+										<li city="0711" style="width:32px;">鄂州</li>
+										<li city="0712" style="width:32px;">孝感</li>
+										<li city="0714" style="width:32px;">黄石</li>
+										<li city="0715" style="width:32px;">咸宁</li>
+										<li city="0716" style="width:32px;">荆州</li>
+										<li city="0717" style="width:32px;">宜昌</li>
+										<li city="0719" style="width:32px;">十堰</li>
+										<li city="0724" style="width:32px;">荆门</li>
+										<li city="0728" style="width:32px;">仙桃</li>
+										<li city="0718" style="width:32px;">恩施</li>
+										<li city="0722" style="width:32px;">随州</li>
+										<li city="0702" style="width:32px;">天门</li>
+										<li city="0703" style="width:32px;">潜江</li>
+										<li city="0701" style="width:32px;">林区</li>
+									</ul>
+								</li>
+							</ul>
+							<span class="dpl f12 ff8 mb-3 ov ml73"></span>
+						</div>
+				
+						<div class="mt7">
+							<p>
+								<span class="w46 h20 dpl lh20 tr mr4 f12">号码</span> 
+								<span class="">
+									<input id="areaCodeKD" name="accnbr" class="dropd_a f12 pl10 bd w75 h21 lh21" value="" onblur="checkAccountNumberKD();" onfocus="this.style.color=&#39;#737e73&#39;;" style="padding-left: 4px;color:#ccc; width: 141px; height: 21px; vertical-align: central; border-left: 1px solid #e4e4e4; border-right: 1px solid #e4e4e4;">
+								</span>
+							</p>
+							<p class="p_bt f12 tc ff8 bd z333" style="display: none;" id="photoK2">请填写宽带账号!</p>
+						</div>
+						
+						<div class="mt7">
+							<span class="w46 h20 dpl lh20 tr mr4 f12">金额</span>
+							<ul id="main_box" class="dpl f12 w64 pa h21 lh21 bd z222" style="z-index:5;">
+								<li class="select_box">
+									<input name="intentAmount" type="hidden" value="10">
+									<span class="pl10 w54 h21 lh21">10元</span>
+									<ul class="son_ul" style="display: none; width: 146px;">
+										<li value="10">10元</li>
+										<li value="20">20元</li>
+										<li value="30">30元</li>
+										<li value="50">50元</li>
+										<li value="100">100元</li>
+										<li value="200">200元</li>
+									</ul>
+								</li>
+							</ul>
+							
+							<span class="dpl f12 ff8 mb-3 ov ml73"></span> 
+						</div>
+						
+						<div class="mt7">
+							<p class="aa mt5">
+								<span class="w46 h20 dpl lh20 tr mr4 f12">验证码</span>
+								<span class="">
+									<input id="adsl_code" name="code" type="text" onclick="showCheckRand(&#39;form_adsl&#39;, &#39;randLabel5&#39;, &#39;checkImg5&#39;);" class="dropd_a f12 pl10 bd w54  h21 lh21" value="">
+								</span>
+								<span id="randLabel5" class="dpl vm" style="display:none;"></span>
+							</p>
+						</div>
+					</div>
+					
+					<p class="mt20" style=" margin-top:5px;*margin-top:5px;">
+						<span class=" ml25">
+							<input type="button" name="Submit" class="f12 cf bcff8201 br w100 h25 bd0 cp" value="立即充值" rel="nofollow" onclick="sppay_submit(5);">
+						</span>
+						<span class="ff_a f12 ml18 ccc_a">
+							<a href="http://hb.189.cn/pages/selfservice/payment/index.action?paybean.randomnum=1" target="_blank">充值专区</a>
+						</span>
+					</p>
+				</div>
+				<input type="hidden" name="vflag" value="SYPAY">
+				<input type="hidden" id="adsl_flag" name="flag" value="2">
+				<input type="hidden" id="adsl_randomnum" name="randomnum" value="3">
+				<input type="hidden" name="attr" value="3">
+				</form>
+			</div>
+    
+			<!-- 固话银行卡充值 -->
+			<div class="lx-con mt5" id="voucha_4" style="display: none;">
+				<ul id="lx_nav6" class="f12 w h ov ml18 mt5" style="padding:0px;margin:0px;margin-left:25px;margin-top:-5px;">
+					<li class="li01" onclick="secBoard(&#39;lx_nav6&#39;,&#39;vouchf&#39;,&#39;li&#39;,1);">
+						<label class="lh30 h30 cp">
+							<input name="4" type="radio" value="" checked="checked" class="ml5 vam h25 ff8 input_mt-2">
+							&nbsp;银行卡充值
+						</label>
+					</li>
+				</ul>
+				
+				<form id="form_phone" name="form_phone" method="post" target="_top" action="http://hb.189.cn/pages/selfservice/payment/index.action">
+				<div class="lx-con mt5" id="vouchf_1" style="display: block;">
+					<div class="recharge">
+						<div class="mt7" style="margin-top:10px;*margin-top:5px;">
+							<span class="w46 h20 dpl lh20 tr mr4 f12">号码</span>
+							<ul id="main_box" class="dpl f12 w54 pa h21 lh21 bd z222">
+                				<li class="select_box">
+                					<input name="citycode" type="hidden" value="0127">
+                					<span class="pl10 w54 h21 lh21">武汉</span>
+									<ul class="son_ul" style="display: none; width: 160px; z-index: 10;">
+										<li city="0127" style="width:32px;">武汉</li>
+										<li city="0713" style="width:32px;">黄冈</li>
+										<li city="0710" style="width:32px;">襄阳</li>
+										<li city="0711" style="width:32px;">鄂州</li>
+										<li city="0712" style="width:32px;">孝感</li>
+										<li city="0714" style="width:32px;">黄石</li>
+										<li city="0715" style="width:32px;">咸宁</li>
+										<li city="0716" style="width:32px;">荆州</li>
+										<li city="0717" style="width:32px;">宜昌</li>
+										<li city="0719" style="width:32px;">十堰</li>
+										<li city="0724" style="width:32px;">荆门</li>
+										<li city="0728" style="width:32px;">仙桃</li>
+										<li city="0718" style="width:32px;">恩施</li>
+										<li city="0722" style="width:32px;">随州</li>
+										<li city="0702" style="width:32px;">天门</li>
+										<li city="0703" style="width:32px;">潜江</li>
+										<li city="0701" style="width:32px;">林区</li>
+									</ul>
+								</li>
+							</ul>
+							
+							<input id="accountNumberGH" name="accnbr" maxlength="8" class="dropd_a f12 pl10 bd w75 h21 lh21 pa ml60" onfocus="this.style.color=&#39;#737e73&#39;;" onblur="checkAccountNumberGH();" type="input" value="">
+								
+							<span class="dpl f12 ff8 mb-3 ov ml73"></span>
+						</div>
+						<p class="p_bt f12 tc ff8 bd z333" style="display: none;" id="photoG1">请填写区号!</p>
+						<p class="p_bt f12 tc ff8 bd z333" style="display: none;" id="photoG2">请填写固话号码!</p>
+						
+						<div class="mt7">
+							<span class="w46 h20 dpl lh20 tr mr4 f12">金额</span>
+							<ul id="main_box" class="dpl f12 w64 pa h21 lh21 bd z222" style="z-index:5;">
+								<li class="select_box">
+									<input name="intentAmount" type="hidden" value="10">
+									<span class="pl10 w54 h21 lh21">10元</span>
+									<ul class="son_ul" style="display: none; width: 160px;">
+										<li value="10">10元</li>
+										<li value="20">20元</li>
+										<li value="30">30元</li>
+										<li value="50">50元</li>
+										<li value="100">100元</li>
+										<li value="200">200元</li>
+									</ul>
+								</li>
+							</ul>
+							
+							<span class="dpl f12 ff8 mb-3 ov ml73"></span>
+						</div>
+						
+						<p class="f12 ff8 li_mt2 tc"></p>
+						<p class="aa mt5">
+							<span class="w46 h20 dpl lh20 tr mr4 f12">验证码</span>
+							<span class="">
+								<input id="phone_code" name="code" type="text" onclick="showCheckRand(&#39;form_phone&#39;, &#39;randLabel6&#39;, &#39;checkImg6&#39;);" class="dropd_a f12 pl10 bd w54  h21 lh21" value="">
+							</span>
+							<span id="randLabel6" class="dpl vm" style="display:none;"></span>
+						</p>
+					</div>
+					
+					<p class="mt20" style=" margin-top:5px;*margin-top:5px;">
+						<span class="ml25">
+							<input type="button" name="Submit" class="f12 cf bcff8201 br w100 h25 bd0 cp" value="立即充值" onclick="sppay_submit(6);">
+						</span>
+						<span class="ff_a f12 ml18 ccc_a">
+							<a href="http://hb.189.cn/pages/selfservice/payment/index.action?paybean.randomnum=1" target="_blank">充值专区</a>
+						</span>
+					</p>
+				</div>
+				<input type="hidden" name="vflag" value="SYPAY">
+				<input type="hidden" name="flag" value="1">
+				<input type="hidden" name="randomnum" value="1">
+				<input type="hidden" name="attr" value="1">
+				</form>
+			</div>
+		</div>
+	</div>	
+		
+	<script type="text/javascript">
+		var money='10';
+		
+		//充话费
+		function submitSjCz(payType, formid, ip) {
+		    var accountNumber = jQuery("#accountNumbersjyh").val();
+		    if (checkAccountNumber("sjyh")) {
+		        var payAmount = money;
+		        
+		        charge(accountNumber,9999,4,payAmount,formid,payType);
+		        
+		    }
+		    
+		}
+		
+		
+		
+		//充话费--卡密
+		function submitSjCzKm(payType, formid, ip) {
+		    //var accountNumber = document.getElementById("accountNumberSJKm").value;
+		    var accountNumber = jQuery("#accountNumbersjkm").val();
+		    if (checkAccountNumber("sjkm")) {
+		       // var payAmount = document.getElementById("cradPin0sj").value;
+		        var payAmount = jQuery("#cradPin0SJ").val();
+		        if (!checkAccountNumberKM("SJ")) {
+		        	return
+		        }else{
+		           charge(accountNumber,9999,4,payAmount,formid,payType);
+		        }
+		    }
+		    
+		}
+		
+		var moneyLL = '';
+		function languageLL(values){
+			moneyLL=values;
+		}
+		//冲流量
+		function submitllCz(payType, formid, ip) {
+		    //var accountNumber = document.getElementById("accountNumberll").value;
+		    var accountNumber = jQuery("#accountNumberllyh").val();
+		    if (checkAccountNumber("llyh")) {
+		    	var payAmount = moneyLL;
+		    	
+		    	charge(accountNumber,9999,9999,payAmount,formid,payType);
+		    	
+		    }
+		    
+		}
+		
+		function checkAccountNumberLLkm(){
+			return true;
+		}
+		//冲流量--卡密
+		function submitllCzKm(payType, formid, ip) {
+		    //var accountNumber = document.getElementById("accountNumberllkm").value;
+		    var accountNumber = jQuery("#accountNumberllkm").val();
+		    if (checkAccountNumber("llkm")) {
+		    	//var payAmount = document.getElementById("cradPin0LL").value;
+		    	var payAmount = jQuery("#cradPin0LL").val();
+		    	if (!checkAccountNumberKM("LL")) 
+		    	{
+		    		
+		    	}else{
+		    		 charge(accountNumber,9999,9999,payAmount,formid,payType);
+		    	}
+		    }
+		    
+		}
+		
+		
+		function isKaMi(cradPin0){
+			 if (cradPin0 == "0") {
+		        alert("请输入卡密!");
+		        return
+		    }
+		    return true
+		}
+		
+		//充固话
+		function submitGhCz(payType, formid, ip) {
+		    //var accountNumber = document.getElementById("accountNumberGH").value;
+		    var accountNumber = jQuery("#accountNumberGH").val();
+		    if (!isNumNull(accountNumber, "photoG2")) {
+		        
+		    }
+		      var payAmount = money;
+		 
+		   charge(accountNumber,areaCode,1,payAmount,formid,payType);
+		}
+		//充宽带
+		function submitKdCz(payType, formid, ip) {
+		    //var areaCode = document.getElementById("areaCodeKD").value;
+		    var areaCode = jQuery("#areaCodeKD").val();
+		    if (!isNumNull(areaCode, "photoK1")) {
+		        return
+		    }
+		    //var accountNumber = document.getElementById("accountNumberKD").value;
+		    var accountNumber = jQuery("#accountNumberKD").val();
+		    if (!isNumNull(accountNumber, "photoK2")) {
+		        return
+		    }
+		    var payAmount = money;    
+		   
+		    charge(accountNumber,areaCode,3,payAmount,formid,payType);
+		}
+		
+		function isRightAmount(payAmount) {
+		    if (payAmount == "" ) {
+		    	jQuery("#photo1_sjkm").hide();
+		    	jQuery("#photo_sjkm").show();
+		        return false
+		    } 
+		    if (payAmount.length != 18) {
+		        jQuery("#photo_sjkm").hide();
+		        jQuery("#photo1_sjkm").show();
+		        return false
+		    }
+		    return true
+		}
+		
+		function checkAccountNumberKM(recharge){
+		   var accountNumber = jQuery("#cradPin0"+recharge).val();
+		   var regtele=/^\d{18}$/;
+		    if (accountNumber == "") {
+		    	jQuery("#photo1"+recharge).hide();
+		    	jQuery("#photo"+recharge).show();
+		        return false
+		    } 
+		    
+		    if (accountNumber.length != 18) {
+			        jQuery("#photo"+recharge).hide();
+			        jQuery("#photo1"+recharge).show();
+		            return false  
+		    }
+		    if (!regtele.test(accountNumber)) {
+			        jQuery("#photo"+recharge).hide();
+			        jQuery("#photo1"+recharge).show();
+		            return false
+		    }
+		
+		    return true
+		}
+		
+		function isNumber(value){
+			if(/^[(-?\d+\.\d+)|(-?\d+)|(-?\.\d+)]+$/.test(value + '')){
+				return true;
+			}
+			return false;
+		}
+		
+		
+		function checkAccountNumberKMEnd(recharge) {
+			if(checkAccountNumberKM(recharge)){
+			        jQuery("#photo"+recharge).hide();
+			        jQuery("#photo1"+recharge).hide();
+			}
+		};
+		
+		
+		
+		function isNumNull(num, mess) {
+		    if (num == "" || num.length == 0) {
+		       // alert(mess);
+		       jQuery("#"+mess).show();
+		        return false
+		    }
+		    if(f_check_zh(num)==true){
+		       //alert(mess);
+		       ("#"+mess).show();
+		       return false
+		    }
+		    return true
+		}
+		
+		function f_check_zh(num){
+			if (/^[\u4e00-\u9fa5]+$/.test(num)) {
+			  return true;
+			}
+			return false;
+		}
+		
+		function checkAccountNumberKD() {
+			var areaCodeKD = jQuery("#areaCodeKD").val();
+			var accountNumberKD = jQuery("#accountNumberKD").val();
+			if(areaCodeKD == 0 && accountNumberKD == 0){
+				jQuery("#photoK1").show();
+				jQuery("#photoK2").hide();
+				return
+				}
+			if(areaCodeKD == "" || areaCodeKD == 0){
+				jQuery("#photoK1").show();
+				return
+				}else{
+					jQuery("#photoK1").hide();
+				}
+			if(accountNumberKD == "" || accountNumberKD == 0){
+				jQuery("#photoK2").show();
+				return
+				}else{
+					jQuery("#photoK2").hide();
+				}
+		
+				
+		};
+		function checkAccountNumberGH() {
+			var areaCodeGH = jQuery("#areaCodeGH").val();
+			var accountNumberGH = jQuery("#accountNumberGH").val();
+			if(areaCodeGH == 0 && accountNumberGH == 0){
+				jQuery("#photoG1").show();
+				jQuery("#photoG2").hide();
+				return
+				}
+			if(areaCodeGH == "" || areaCodeGH == 0){
+				jQuery("#photoG1").show();
+				return
+				}else{
+					jQuery("#photoG1").hide();
+				}
+			if(accountNumberGH == "" || accountNumberGH == 0){
+				jQuery("#photoG2").show();
+				return
+				}else{
+					jQuery("#photoG2").hide();
+				}
+		};
+		
+		function checkAccountNumber(recharge){
+			 var regtele = /^\d{11}$/;
+		   // var accountNumber = document.getElementById("accountNumber"+recharge).value;
+		   var accountNumber = jQuery("#accountNumber"+recharge).val();
+		    var threeNum = accountNumber.substring(0, 3);
+		    var threeNum2 = accountNumber.substring(0, 4);
+		    if (accountNumber == "") {
+		    	jQuery("#photo"+recharge).show();
+		    	jQuery("#photo2"+recharge).hide();
+		    	jQuery("#photo1"+recharge).hide();
+		        return false
+		    } else {
+		        if (accountNumber.length != 11) {
+		        	jQuery("#photo"+recharge).hide();
+		            jQuery("#photo2"+recharge).hide();
+		       	 	jQuery("#photo1"+recharge).show();
+		            return false
+		        } else {
+		            if (!regtele.test(accountNumber)) {
+		            	jQuery("#photo"+recharge).hide();
+		                jQuery("#photo2"+recharge).hide();
+		            	jQuery("#photo1"+recharge).show();
+		                return false
+		            } else {
+		            }
+		        }
+		    }
+		    return true
+		}
+		
+		function checkAccountNumberEnd(recharge) {
+			if(checkAccountNumber(recharge)){
+				jQuery("#photo"+recharge).hide();
+				jQuery("#photo1"+recharge).hide();
+		        jQuery("#photo2"+recharge).hide();
+			}
+		};
+	</script>
+    
+	<script type="text/javascript">
+		function charge(chargeNum,areaCode,numberType,chargeCount,formid,payType){
+		  
+		   	 jQuery("#desTinationID").val(chargeNum);
+		  	 jQuery("#rechargeType1").val(payType);
+		  	 jQuery("#objType").val(numberType);
+		   	 jQuery("#areaCode").val(areaCode);
+		     jQuery("#selectMoney").val(chargeCount);
+		     var requestURL="http://gs.189.cn/web/pay2/firstPage.action?"+jQuery("#blankChargeForm").serialize();
+		     
+		     document.getElementById(formid).action=requestURL;
+		     document.getElementById(formid).submit();
+		}
+	</script> 
+	
+	<script type="text/javascript">
+		jQuery(document).ready(function(){
+			jQuery('.son_ul').hide(); //初始ul隐藏
+			jQuery('.select_box span').hover(function(){ //鼠标移动函数
+				jQuery(this).parent().find('ul.son_ul').slideDown();  //找到ul.son_ul显示
+				jQuery(this).parent().find('li').hover(function(){jQuery(this).addClass('hover')},function(){jQuery(this).removeClass('hover')}); //li的hover效果
+				jQuery(this).parent().hover(function(){},
+			 		function(){
+						jQuery(this).parent().find("ul.son_ul").slideUp(); 
+					}
+				);},function(){});
+		
+			jQuery('ul.son_ul li').click(function(){
+				jQuery(this).parents('li').find('span').html(jQuery(this).html());
+				jQuery(this).parents('li').find('ul').slideUp();
+				var value = jQuery(this).val();
+				if(value != 'undefined'&&value!=''){
+					jQuery(this).parents('li').find('input').val(value);
+				}
+				//针对地市下拉框修改
+				var city = jQuery(this).attr("city");
+				if(city && city != 'undefined'&& city != ''){
+					jQuery(this).parents('li').find('input').val(city);
+				}
+				
+				var elementId = jQuery(this).parents('li').find('input').attr("id");
+				if(elementId && elementId != 'undefined' && elementId == 'flowcardAmount'){
+					jQuery("#cardflow").html(value+"M");
+				}
+			});
+		});
+	</script>	
+
+
+
+</body></html>

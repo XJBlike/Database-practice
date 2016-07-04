@@ -1,0 +1,624 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0045)http://www.189.cn/dqmh/cms/index/login_jx.jsp -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--<base href="http://www.189.cn:80/dqmh/">--><base href=".">
+    <title>登录</title>
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	
+	<link rel="stylesheet" type="text/css" href="cmsIndexLogin.css">
+	<script type="text/javascript" src="jquery-1.8.3(1).js"></script>
+	<script type="text/javascript" src="thirdLogout.js"></script>
+	<script type="text/javascript" src="jquery.cookie.js"></script>
+	<script type="text/javascript" src="cityCode.js"></script>
+	<script type="text/javascript" src="shopUtils.js"></script>
+	<script type="text/javascript" src="loginUtils.js"></script>
+	<script type="text/javascript">
+	 
+    var loginInResult = null;
+	var loginOutResult = null;
+	var shopId = $.cookie('SHOPID_COOKIEID');
+	</script>
+	 
+	
+	<script type="text/javascript">
+		var path_='/dqmh';
+		var pageUrl = 'http://www.189.cn/';
+		var buyPageUrl = "";
+	    $(document).ready(function(){
+		    //宝贝页登陆后跳到宝贝页
+			 if(filterUrl(pageUrl)){
+				buyPageUrl = pageUrl;
+			 }
+			if ('' == null ||''=='' ){
+				$.ajax({
+                   type: "GET",
+                   url: '/dqmh/Uam.do?method=getUamUserInfo',   
+                   dataType: "json",
+                   async: false,
+                   success: function(msg){
+                   var userInfo = eval(msg);
+                      if(userInfo!=null && userInfo != '' && userInfo.msg != 'error'){
+                      		var userName = userInfo.custName;
+                      		if(userName == null || userName == ''){
+                      			userName = userInfo.accountID;
+                      			if(userName == null || userName == ''){
+                      				userName = userInfo.userName;
+                      			}
+                      		}
+                      		if(shopId=='10013'){
+                      			var userName = "<a href='/dqmh/frontLink.do?method=linkTo&shopId=10013&toStUrl=http://ah.189.cn/service/account/init.action' target='_top'>"+userName+"</a>"
+                      		}
+							 $("#loginShow").html("<input type='hidden' id='userType' value=''/><span>您好，"+userName+"</span><span><a href='javascript:void(0)' onclick='logout()'>退出</a>&nbsp;</span>")
+                          }else{
+                             var Then = new Date();
+							 var domain=".189.cn";
+							 Then.setTime(Then.getTime()+15*60);//15分钟过期
+							 document.cookie="isLogin="+escape("non-logined")+";expires=" + Then.toGMTString()+ "; path=/" + ";domain="+domain;
+							 Then.setTime(Then.getTime() - 10000);
+							 document.cookie="AccountID=null;expires=" + Then.toGMTString()+ "; path=/" + ";domain="+domain;
+							 document.cookie="aactgsh111220=null;expires=" + Then.toGMTString()+ "; path=/" + ";domain="+domain;
+							 document.cookie=".ybtj.189.cn=null;expires=" + Then.toGMTString()+ "; path=/" + ";domain="+domain;
+							 //
+							 try{
+							 	 var addressUrl = 'www.189.cn';
+								 if(addressUrl.indexOf("www.189.cn")<0){
+									kuandaiLogin(shopId);
+								 }
+							 }catch(e){}
+                          }	
+                   },
+                   error:function(msg){
+							var Then = new Date();
+							 var domain=".189.cn";
+							 Then.setTime(Then.getTime()+15*60);//15分钟过期
+							 document.cookie="isLogin="+escape("non-logined")+";expires=" + Then.toGMTString()+ "; path=/" + ";domain="+domain;
+							 Then.setTime(Then.getTime() - 10000);
+							 document.cookie="AccountID=null;expires=" + Then.toGMTString()+ "; path=/" + ";domain="+domain;
+							 document.cookie="aactgsh111220=null;expires=" + Then.toGMTString()+ "; path=/" + ";domain="+domain;
+							 document.cookie=".ybtj.189.cn=null;expires=" + Then.toGMTString()+ "; path=/" + ";domain="+domain;
+							 try{
+							 	 var addressUrl = 'www.189.cn';
+								 if(addressUrl.indexOf("www.189.cn")<0){
+									kuandaiLogin(shopId);
+								 }
+							 }catch(e){}
+                       }
+         		 });	
+			}else{
+				var userType_ = '';
+				var cityCode = $.cookie('cityCode');
+				if((userType_ == 'benwang') && cityCode.indexOf("zj") > -1){
+					$("#zjUserCenter").attr('href','/dqmh/frontLink.do?method=linkTo&shopId='+shopId+'&toStUrl=service/'); 
+					$("#zjUserCenter").show();
+				}
+				if(shopId=='10013'){
+                      $("#loginUserName").html("您好，<a href='/dqmh/frontLink.do?method=linkTo&shopId=10013&toStUrl=http://ah.189.cn/service/account/init.action' target='_top'></a>")
+                  }
+				
+			}
+		var dates=new Date();
+		$("#myOrderList").attr("href","/dqmh/userCenter/myOrderInfoList.do?method=listMyOrderInfo_new&isVs=no&rand="+dates.getTime());
+		setSCode();
+		
+		if(buyPageUrl!="" && buyPageUrl!=null){
+			if(shopId == '10001'){
+				$("#loginJT").attr("href","/dqmh/ssoLink.do?method=linkTo&platNo=10001&toStUrl=http://www.189.cn/dqmh/my189/initMy189home.do");
+				$("#userreg_link").attr("href","http://login.189.cn/reg");
+			}else if(shopId == '10003'){
+				$("#loginJT").attr("href","/dqmh/ssoLink.do?method=linkTo&platNo=93507&toStUrl=http://service.sh.189.cn/service/account");
+				$("#userreg_link").attr("href","http://login.189.cn/reg");
+			}else if(shopId == '10002' ||shopId == '10015' || shopId == '10025' || shopId == '10026' || shopId == '10029'||shopId == '10014'||shopId == '10028'||shopId == '10027'||shopId == '10004'||shopId == '10031'||shopId == '10007'||shopId == '10005'||shopId == '10006'||shopId == '10023'||shopId == '10030'||shopId == '10009'||shopId == '10010' ){
+				$("#loginJT").attr("href","/dqmh/UamTO.do?method=loginSend&buyPageUrl="+buyPageUrl);
+				$("#userreg_link").attr("href","http://login.189.cn/reg");
+			 }else{
+				$("#loginJT").attr("href","/dqmh/login/loginJT.jsp?buyPageUrl="+buyPageUrl);
+			}
+		}else{
+			if(shopId == '10001'){
+				$("#loginJT").attr("href","/dqmh/ssoLink.do?method=linkTo&platNo=10001&toStUrl=http://www.189.cn/dqmh/my189/initMy189home.do");
+				$("#userreg_link").attr("href","http://login.189.cn/reg");
+			}else if(shopId == '10003'){
+				$("#loginJT").attr("href","/dqmh/ssoLink.do?method=linkTo&platNo=93507&toStUrl=http://service.sh.189.cn/service/account");
+				$("#userreg_link").attr("href","http://login.189.cn/reg");
+			}else if(shopId == '10011'){
+					var jshtml = $("#back_login_fade").html();
+					$("#pageheader",window.parent.document).append(jshtml);//将iframe内容赋值到父层页面
+				 	$("#loginJT").attr("href","javascript:window.parent.document.getElementById('js_login_ifram').contentWindow.loginWithBack();");
+			}else if(shopId == '10013'){
+					$("#loginJT").attr("href","http://ah.189.cn/sso/login?returnUrl=%2Fservice%2Faccount%2Finit.action");
+			}else if(shopId == '10002' || shopId == '10015' || shopId == '10025' || shopId == '10026' || shopId == '10029'||shopId == '10014'||shopId == '10027'||shopId == '10007'||shopId == '10005'||shopId == '10006'||shopId == '10023'||shopId == '10030'||shopId == '10009'||shopId == '10010'){
+					$("#loginJT").attr("href","/dqmh/UamTO.do?method=loginSend");
+					$("#userreg_link").attr("href","http://login.189.cn/reg");
+			}else if(shopId == '10028'){
+				$("#loginJT").attr("href","/dqmh/ssoLink.do?method=linkTo&platNo=10028&toStUrl=http://www.189.cn/dqmh/my189/initMy189home.do");
+				$("#userreg_link").attr("href","http://login.189.cn/reg");
+			}else if(shopId == '10031'){
+				$("#loginJT").attr("href","/dqmh/ssoLink.do?method=linkTo&platNo=10031&toStUrl=http://xj.189.cn/service/account/index.jsp");
+				$("#userreg_link").attr("href","http://login.189.cn/reg");
+			}else if(shopId == '10004'){
+				$("#loginJT").attr("href","/dqmh/ssoLink.do?method=linkTo&platNo=10004&toStUrl=http://cq.189.cn/account/index.htm");
+				$("#userreg_link").attr("href","http://login.189.cn/reg");
+			}
+			else if(shopId == '10020'){
+					$("#loginJT").attr("href","http://gd.189.cn/common/login.jsp");
+					$("#userreg_link").attr("href","http://login.189.cn/reg");
+			}else if(shopId == '10019'){
+					$("#loginJT").attr("href","http://hn.189.cn/grouplogin");
+					$("#userreg_link").attr("href","http://login.189.cn/reg");
+			}else if(SU.getUserUrlto(shopId) != ""){
+					$("#loginJT").attr("href","/dqmh/login/loginJT.jsp?UserUrlto=/dqmh/frontLink.do?method=linkTo&shopId="+shopId+"&toStUrl="+SU.getUserUrlto(shopId));
+			}
+		}
+		
+		
+
+		
+		 });
+	    
+	    function jsToLogin(){
+	    	window.parent.document.getElementById('js_login_ifram').contentWindow.loginWithBack();
+	    	 
+	    }
+	    //----------------
+			//宽带用户：自动登陆
+		    function kuandaiLogin(shopId){
+		    	//alert("cityCode:"+cityCode);
+		    	var zidong = SU.LOGINBYKUANDAI_ZIDONG;
+		    	var both = SU.LOGINBYKUANDAI_BOTH;
+		    	//alert("zidong:"+zidong+";both:"+both);
+		    	//-1:没有找到
+		    	var zidongFlag = zidong.indexOf(shopId);
+		    	var bothFlag = both.indexOf(shopId);
+		    	//alert("zidongFlag:"+zidongFlag+";bothFlag:"+bothFlag);
+		    	//有要自动登陆的
+		    	//alert("登陆session:"+loginInResult+";登出session:"+loginOutResult);
+		    	if(loginInResult==null&&loginOutResult==null){
+			    	if(zidongFlag!=-1||bothFlag!=-1){
+			    		//alert("我要自动登陆喽......")
+			    		yijianLoginIn();
+			    	}
+		    	}
+		    }
+		    
+		    //宽带登陆
+			function yijianLoginIn(){
+				$.ajax({
+				 		type: "POST",
+				 		dataType: 'json',
+				 		url: "/dqmh/userCenter/yiJianLoginAction.do?method=yiJianLoginIn&shopId="+shopId,
+				 		success: function(msg){
+							if(msg.code=='0'){
+								window.parent.location.href = '/';
+							}else{
+								//alert("自动登陆失败，请进行点击登陆！");
+							}
+				 		},
+				 		error:function(msg){
+							//alert(msg.msg);
+						}
+				});
+			}
+		//------------------
+	</script>
+	<script type="text/javascript">
+		//document.domain = '189.cn';
+		function logout(){
+			if(shopId == '10011'){
+				window.parent.location.href = path_+"/Uam.do?method=unifiedLogout&toUrl=http://js.189.cn/self_service/logout.action?TargetURL=http://www.189.cn/js";	
+				return;
+			}else if(shopId == '10002' ||shopId == '10015' || shopId == '10025' || shopId == '10026' || shopId == '10029'||shopId == '10014'||shopId == '10028'||shopId == '10027'||shopId == '10004'||shopId == '10031'||shopId == '10019'||shopId == '10007'||shopId == '10003'||shopId=='10001'||shopId == '10005'||shopId == '10006'||shopId == '10023'||shopId == '10030'||shopId == '10009'||shopId == '10010'){  //ecs登陆用户退出
+				ecsUserLogout();
+				return ;
+			}else if($('#userType').val() == "tencentUserInfo"){  //腾讯退出
+				tencentLogout();
+			}else if($('#userType').val() == "sinaUserInfo"){  //新浪退出
+				sinaLogout();
+			}else if($('#userType').val() == "benwang"){  //UAM登陆用户退出
+				uamUserLogout();
+				return ;
+			}else if(loginInResult=='0'){
+				//alert("宽带退出，，，，");
+				yijianLogout();
+			}else{   //普通退出,3-18切换成Uam退出
+				//commonLogout();
+				uamUserLogout();
+				return ;
+			}
+			//跳转到首页
+			window.parent.location.href = '/';
+		}
+		
+		function iframeToMyOrderList(){
+			var s=new Date();
+			window.parent.location.href = "/dqmh/userCenter/myOrderInfoList.do?method=listMyOrderInfo&rand=" + s.getTime();
+		}
+		function yijianLogout(){
+			var flag = false ;
+			$.ajax({
+				type: "POST",
+				url: "/dqmh/userCenter/yiJianLoginAction.do?method=yiJianLogout",  
+				dataType: "json",
+				async:false,
+				success: function(msg){
+					if(msg.code == '0'){
+						if(sendURLTo()){
+							flag = true ;
+						}else{
+							window.parent.location.href = '/';
+							flag = false ;
+						}
+					};
+					if(msg.code == '1'){
+						window.parent.location.href = '/';
+						flag = false ;
+					}
+				},
+				error:function(msg){
+					window.parent.location.href = '/';
+					flag = false;
+				}
+			});
+			return flag ;
+		}
+		function uamUserLogout(){
+			var flag = false ;
+			$.ajax({
+				type: "POST",
+				url: path_ + '/Uam.do?method=logout',   
+				dataType: "json",
+				async:false,
+				success: function(msg){
+					if(msg.code == '0'){
+						if(sendURLTo()){
+							flag = true ;
+						}else{
+							window.parent.location.href = '/';
+							flag = false ;
+						}
+					};
+					if(msg.code == '1'){
+						window.parent.location.href = '/';
+						flag = false ;
+					}
+				},
+				error:function(msg){
+					window.parent.location.href = '/';
+					flag = false;
+				}
+			});
+			return flag ;
+		}
+		
+		function sendURLTo(){
+			var contextPath = 'http://' + 'www.189.cn' ;
+			var  path = '/dqmh' ;
+			var totalUrl = contextPath + path ;
+			var tt = document.getElementById('uamlogout') ;
+			document.getElementById('service1').value =  totalUrl + '/Uam.do?method=logout2UAM' ;
+			tt.submit() ;
+			return true ;
+		}
+		
+		function ecsUserLogout(){
+			var contextPath = 'http://' + 'www.189.cn' ;
+			var ecstt = document.getElementById('ecslogout') ;
+			if(shopId=='10003'){
+				shopId = '93507';//上海登出planno
+			}
+			document.getElementById('shopId').value = shopId;
+			document.getElementById('DestURL').value = contextPath;
+			ecstt.submit() ;
+			return true ;
+		}
+
+		//用于uam的宁夏用户 弹出活动页
+		 if(''!=undefined&&''!= null&&''!=''){
+	          $("#activity_provinceId",window.parent.document).val('');
+			  $("#activity_accNbr",window.parent.document).val('');
+			  $("#activity_latnId",window.parent.document).val('');
+			  $("#activity_landtype",window.parent.document).val('');
+	 		  $("#activity_nx",window.parent.document).text('');
+	   }
+		
+		function getURLOfLoginId(param) {
+			var url = window.parent.location.href;
+			var urlInfo = url.replace("#", "");
+			var len = urlInfo.length;
+			var offset = urlInfo.indexOf("?");
+			var strParamValue = "";
+			if (offset > 0) {
+				var strKeyValue = urlInfo.substr(offset + 1, len);
+				if (strKeyValue.indexOf("&") > 0) {
+					var keyValueArray = strKeyValue.split("&");
+					for (var i = 0; i < keyValueArray.length; i++) {
+						var channelArray = keyValueArray[i].split("=");
+						if (channelArray[0] == param) {
+							strParamValue = channelArray[1];
+						}
+					}
+				} else {
+					var keyValueArr = strKeyValue.split("=");
+					if (keyValueArr[0] == param) {
+						strParamValue = keyValueArr[1];
+					}
+				}
+				return strParamValue;
+			}
+		}
+	</script>
+  </head>
+  
+  <body style="background-color:transparent">
+  	<div class="login" id="loginShow" style="font-size: 12px;color: #777777;font-family: \5FAE\8F6F\96C5\9ED1,verdana; ">
+    
+	
+		<span>欢迎来到欢go网站</span>
+		<span><a target="_top" id="loginJT" href="http://www.189.cn/dqmh/login/loginJT.jsp?UserUrlto=/dqmh/frontLink.do?method=linkTo&shopId=10018&toStUrl=http://hb.189.cn/SSOtoWSS?toWssUrl=/hbuserCenter.action">登录</a>&nbsp;|&nbsp;<a id="userreg_link" href="http://login.189.cn/reg2" target="_top">免费注册</a></span>
+		
+
+<link rel="stylesheet" href="jquery-ui-1.8.23.custom.css" type="text/css">
+<style>
+.white_content {
+ display: none;
+ position: fixed;
+ top: 30%;
+ left: 30%;
+ width:350px;
+ height:180px;
+ padding: 0px 0px;
+ border: 1px solid #D6E9F1;
+ background-color: white;
+ z-index:1002;
+ overflow: auto;
+ 
+ 
+}
+.white_content2 {
+ display: none;
+ position: fixed;
+ top: 30%;
+ left: 30%;
+ width:350px;
+ height:185px;
+ padding: 0px 0px;
+ border: 1px solid #D6E9F1;
+ background-color: white;
+ z-index:1002;
+ overflow: auto;
+ 
+ 
+}
+.black_overlay {
+ display: none;
+ position: fixed;
+ top: 0%;
+ left: 0%;
+ width: 100%;
+ height: 100%;
+ background-color:#f5f5f5;
+ z-index:1001;
+ -moz-opacity: 0.8;
+ opacity:.80;
+ filter: alpha(opacity=80);
+ background: #666666 url(/dqmh/static/js/jquery/ui-lightness/images/ui-bg_diagonals-thick_20_666666_40x40.png) repeat 50% 50% ; 
+ opacity: .50;filter:Alpha(Opacity=50);
+}
+.close {
+ float:right;
+ clear:both;
+ width:100%;
+ text-align:right;
+ margin:0 0 0 0;
+ line-height: 35px;
+ background:#f6a828 url(/dqmh/static/js/jquery/ui-lightness/images/ui-bg_highlight-soft_100_eeeeee_1x100.png) repeat-x 50% 50%; color: #000; font-weight: bold;
+}
+.close a {
+ color:#333;
+ text-decoration:none;
+ font-size:14px;
+ font-weight:700;
+ width: 42px; height: 35px; background-image: url(/dqmh/static/image/mall/close.png);
+}
+.ok_close {
+ clear:both;
+ width:100%;
+ text-align:center; 
+}
+.ok_close a {
+color:#666; text-decoration:none; margin:0 3px; float:left; line-height:26px;
+ width:73px; background:url(/dqmh/static/image/zzfw/next.jpg) no-repeat; height:26px; text-align:center; line-height:26px;
+ margin-bottom: 15px
+}
+.con {  
+ line-height:25px;
+ font-size: 14px;
+ height:70px;
+ text-align: center;
+ clear:both;padding:20px 10px 0px 10px;width:330px;
+}
+.btn_2font{ background:url(../image/public/btn_2font.png)  no-repeat; width:82px; height:34px; line-height:34px; font-size:14px; font-family:"微软雅黑"; text-align:center;border:0px;color:#444}
+
+</style>
+<script>
+function show(tag){
+ var light=document.getElementById(tag);
+ var fade=document.getElementById('fade');
+ light.style.display='block';
+ fade.style.display='block';
+ }
+function hide(tag){
+ var light=document.getElementById(tag);
+ var fade=document.getElementById('fade');
+ light.style.display='none';
+ fade.style.display='none';
+}
+function alertDiv(con_){
+	document.getElementById("fade").style.height = document.body.clientHeight;
+	document.getElementById("div_view_content1").innerHTML=con_;
+	show('light');
+}
+var confirm_boo;
+function confirmDiv(con_,submit_){
+	if(con_.len>21){
+		
+	}
+	document.getElementById("fade").style.height = document.body.clientHeight;
+	//submit_ = submit_.replace("#","'");alert(submit_)	
+	document.getElementById("div_view_content2").innerHTML=con_;
+	document.getElementById('a_ok_submit').href="javascript:hide('light2');"+submit_;
+	show('light2');
+}
+
+function confirmDivQx(con_,submit_){
+	document.getElementById("fade").style.height = document.body.clientHeight;
+	//submit_ = submit_.replace("#","'");alert(submit_)	
+	document.getElementById("div_view_content2").innerHTML="<img src='/dqmh/static/image/zzfw/qx.jpg' style='float:left;'/><span style='padding-bottom:10px;display:inline-block;float:left;margin-top:20px;'>"+con_+"</span>";
+	document.getElementById('a_ok_submit').href="javascript:hide('light2');"+submit_;
+	show('light2');
+}
+function confirmDivPwd(){
+	document.getElementById("fade").style.height = document.body.clientHeight;
+	//submit_ = submit_.replace("#","'");alert(submit_)	
+	//document.getElementById("div_view_content3").innerHTML=con_;
+	document.getElementById('a_ok_submit').href="javascript:hide('light3');";
+	show('light3');
+}
+function alertTelCheckDiv(con_){
+	document.getElementById("fade").style.height = document.body.clientHeight;
+	document.getElementById("div_view_content4").innerHTML=con_;
+	show('light4');
+}
+function alertsubDiv(con_){
+	document.getElementById("fade").style.height = document.body.clientHeight;
+	document.getElementById("div_view_content5").innerHTML=con_;
+	show('light5');
+}
+function hide_submit(){
+	
+}
+function showRepeatUser(username){
+	$(".main_div_repeat").show();
+	$("#repeat_fade").show();
+	$("#myOldName").val(username);
+}
+</script>
+<!-- 
+<a href="javascript:void(0)" onclick="show('light')">打开1</a>
+<a href="javascript:void(0)" onclick="show('light2')">打开2</a>
+ -->
+<div id="light" class="white_content ui-corner-all">
+	  <div class="close"><b style="float: left;padding-left: 5px" onclick="hide(&#39;light&#39;)"> 信息提示</b><a style="float: right;" href="javascript:void(0)" onclick="hide(&#39;light&#39;)"></a></div> 
+      <div id="div_view_content1" class="con"> 
+      内容1
+      </div>
+      <div class="ok_close" style=" width:82px;margin:0px auto;  ">
+      		<a href="javascript:void(0)" style="background:url(/dqmh/static/image/public/btn_2font.png)  no-repeat; width:82px; height:34px;  font-size:14px;text-align:center;font-family:&#39;微软雅黑&#39;;border:0px;color:#444;" onclick="hide(&#39;light&#39;)"> 确定</a>
+
+		</div>
+      
+</div>
+<div id="light2" class="white_content ui-corner-all">
+      <!-- <div class="close"><a href="javascript:void(0)" onclick="hide('light2')"> 关闭</a></div> -->
+      <div class="close"><b style="float: left;padding-left: 5px" onclick="hide(&#39;light2&#39;)"> 信息提示</b><a style="float: right;" href="javascript:void(0)" onclick="hide(&#39;light2&#39;)"></a></div> 
+      <div id="div_view_content2" class="con" style="padding:20px 10px 0px 60px;width:260px;line-height:22px;"> 
+      内容2 
+      </div>
+      <div class="ok_close"><a id="a_ok_submit" href="javascript:void(0)" style="margin-left: 30%"> 确定</a><a href="javascript:void(0)" onclick="hide(&#39;light2&#39;)"> 取消</a></div>
+</div>
+<div id="light3" class="white_content ui-corner-all">
+      <!-- <div class="close"><a href="javascript:void(0)" onclick="hide('light2')"> 关闭</a></div> -->
+      <div class="close"><b style="float: left;padding-left: 5px" onclick="hide(&#39;light3&#39;)"> 系统提示</b><a style="float: right;" href="javascript:void(0)" onclick="hide(&#39;light3&#39;)"></a></div> 
+      <div id="div_view_content3" class="con" style="text-align:left;"> 
+      &nbsp; &nbsp; &nbsp;进行密码修改之前您需要先登录，如果忘记<br>&nbsp; &nbsp; &nbsp;密码，您需要进行密码重置。
+      </div>
+      <div class="ok_close">
+      <a href="javascript:void(0)" style="margin-left: 25%;background:url(/dqmh/static/image/public/btn_cancle.png)  no-repeat; width:82px; height:34px;  font-size:14px;text-align:center;font-family:&#39;微软雅黑&#39;;border:0px;color:#444;" onclick="hide(&#39;light3&#39;)"> 取消</a>
+      <a id="a_ok_submit" href="http://www.189.cn/dqmh/login/loginJT.jsp" style="margin-left:5px;background:url(/dqmh/static/image/public/btn_2font.png)  no-repeat; width:82px; height:34px;  font-size:14px;text-align:center;font-family:&#39;微软雅黑&#39;;border:0px;color:#444;">立即登录</a>
+</div>
+</div>
+
+<div id="light4" class="white_content ui-corner-all">
+	  <div class="close"><b style="float: left;padding-left: 5px" onclick="hide(&#39;light4&#39;)"> 验证结果</b><a style="float: right;" href="javascript:void(0)" onclick="hide(&#39;light4&#39;)"></a></div> 
+      <div id="div_view_content4" class="con"> 
+      内容
+      </div>
+      <div class="ok_close" style=" width:82px;margin:0px auto;  ">
+      		<a href="javascript:void(0)" style="background:url(/dqmh/static/image/public/btn_2font.png)  no-repeat; width:82px; height:34px;  font-size:14px;text-align:center;font-family:&#39;微软雅黑&#39;;border:0px;color:#444;" onclick="hide(&#39;light4&#39;)"> 确定</a>
+
+		</div>
+</div>
+<div id="light5" class="white_content2 ui-corner-all">
+	  <div class="close"><b style="float: left;padding-left: 5px" onclick="hide(&#39;light5&#39;)"> 信息提示</b><a style="float: right;" href="javascript:void(0)" onclick="hide(&#39;light5&#39;)"></a></div> 
+      <div id="div_view_content5" class="con"> 
+      内容
+      </div>
+      <div class="ok_close" style=" width:82px;margin:5px auto;  ">
+      		<a href="javascript:void(0)" style="background:url(/dqmh/static/image/public/btn_2font.png)  no-repeat; width:82px; height:34px;  font-size:14px;text-align:center;font-family:&#39;微软雅黑&#39;;border:0px;color:#444;" onclick="hide(&#39;light5&#39;)"> 确定</a>
+
+		</div>
+</div>
+<div class="main_div_repeat" style="display: none;">
+<form action="" id="repeat_form">
+<input type="hidden" id="emailHidd" name="email">
+<div class="new_div">
+    	<p style="color:#7c8c8b">请重新注册</p>
+        <div class="new_content">
+             <table border="0" cellspacing="0" cellpadding="0" class="phone_table">
+                      <tbody><tr>
+                        <td width="82"><span class="font14 col">老用户名:</span></td>
+                        <td width="208"><input id="myOldName" name="oldName" type="text" value="" onblur="javascript:checkOldNameRepeat();" alt="邮箱/用户名" readonly="readonly"></td>
+                      </tr>
+                      <tr>
+                        <td><span class="font14 col">老密码:</span></td>
+                        <td><input id="myOldPassword" name="oldPassword" type="password" onblur="javascript:checkOldPasswordRepeat();" alt="密码"></td>
+                      </tr>
+                       <tr>
+                        <td width="82"><span class="font14 col">新用户名:</span></td>
+                        <td width="208"><input id="myNewName" name="newName" type="text" value="" onblur="javascript:checkEmailNameRepeat();" alt="邮箱"></td>
+                      </tr>
+                      <tr>
+                        <td><span class="font14 col">新密码:</span></td>
+                        <td><input id="myNewPassword" name="myNewPassword" type="password" onblur="javascript:checkEmailPasswordRepeat();" alt="密码"></td>
+                      </tr>
+                      <tr>
+                        <td><span class="font14 col">请重新输入:</span></td>
+                        <td><input id="myNewPassword2" type="password" onblur="javascript:checkEmailPasswordTwoRepeat();" alt="密码"></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td class="font12" style="line-height:18px;"><img id="ImgError" style="display: none;" src="jian.jpg"><span class="img_R" id="errorTip"></span></td>
+                      </tr>
+                      <tr>
+                      	<td colspan="2"><span class="zc_but font16" onclick="check_form_repeat();">提&nbsp;&nbsp;&nbsp;&nbsp;交</span></td>
+                      </tr>
+                      <tr>
+                      
+                      </tr>
+                    </tbody></table>
+        </div>
+    </div>
+   </form>
+     <div class="newwxts">温馨提示：请使用新用户名、密码登录网上营业厅。</div>
+</div>
+
+<div id="fade" class="black_overlay"></div>
+
+
+	
+	</div>
+	
+	<form action="https://uam.ct10000.com/ct10000uam-gate/SSOLogout/" name="uamlogout" id="uamlogout" method="post" target="_top">
+		<input type="hidden" name="service" id="service" value="">
+		<input type="hidden" name="service1" id="service1" value="">
+	</form>
+	<form action="http://www.189.cn/dqmh/UamTO.do?method=logout2" name="ecslogout" id="ecslogout" method="post" target="_top">
+		<input type="hidden" name="shopId" id="shopId" value="">
+		<input type="hidden" name="DestURL" id="DestURL" value="">
+	</form>
+  
+
+</body></html>

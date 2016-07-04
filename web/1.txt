@@ -1,0 +1,36 @@
+create trigger state_update after update on restmoney
+for EACH ROW
+BEGIN
+if new.count < 0 THEN
+SET @statein = 1;
+else 
+SET @statein = 0;
+end if;
+update stateinfo
+set state =@statein
+where tel = new.tel;
+END
+
+
+//UPDATE restmoney
+SET count = -10
+where tel = '13260644613';
+
+CREATE trigger count_sub_update after insert on feedesinfo
+for each ROW
+BEGIN
+set @count = (select count - new.count from restmoney where tel = new.tel);
+UPDATE restmoney
+set count =@count
+WHERE tel = new.tel;
+END
+//
+
+create trigger count_add_update after insert on payinfo
+for each ROW
+BEGIN
+set @count = (select count + NEW.count from restmoney where tel = NEW.tel);
+update restmoney
+set count =@count
+where tel = new.tel;
+END

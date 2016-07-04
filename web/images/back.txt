@@ -1,0 +1,4 @@
+*{padding:0px;margin:0px;}
+.conn{width:500px;height:500px;border:1px solid #000;text-align:center;}/*好懂吧，宽高定义，文本居中。*/
+.imgmid{display:inline-block;*display:inline;*zoom:1;height:100%;width:1px;margin-left:-1px;vertical-align:middle}/*这个LZ自己研究研究，我定义了一个高100%的块元素用来对齐img*/
+.conn img{width:400px;height:400px;vertical-align:middle;}
